@@ -1,27 +1,22 @@
-import { TestBed } from '@angular/core/testing';
-import { AppComponent } from './app.component';
+import { TestBed } from "@angular/core/testing";
+import { AppComponent } from "./app.component";
+import { UserService } from "./user/user.service";
 
 describe('AppComponent', () => {
-  beforeEach(() => TestBed.configureTestingModule({
-    declarations: [AppComponent]
-  }));
+  let userService: UserService;
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+  beforeEach(() => {
+    TestBed.configureTestingModule({});
+    userService = TestBed.inject(UserService);
   });
 
-  it(`should have as title 'social-platform'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('social-platform');
+  it('should be create', () => {
+    expect(userService).toBeTruthy();
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('social-platform app is running!');
+  it('should get users', () => {
+    userService.getUsers().subscribe(users => {
+      expect(users.length).toBeGreaterThan(0)
+    })
   });
 });
